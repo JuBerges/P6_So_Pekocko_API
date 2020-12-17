@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/WadeSpectre/P6_So_Pekocko_API/issues"
   },
-  "homepage": "https://github.com/WadeSpectre/P6_So_Pekocko_API#readme"
+  "homepage": "https://github.com/WadeSpectre/P6_So_Pekocko_API#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8",
+    "path": "^0.12.7"
+  }
 }
