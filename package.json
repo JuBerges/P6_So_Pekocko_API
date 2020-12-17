@@ -18,9 +18,13 @@
   },
   "homepage": "https://github.com/WadeSpectre/P6_So_Pekocko_API#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
+    "mongoose-unique-validator": "^2.0.3",
+    "multer": "^1.4.2",
     "path": "^0.12.7"
   }
 }
