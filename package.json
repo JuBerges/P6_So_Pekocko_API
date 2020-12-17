@@ -1,0 +1,20 @@
+{
+  "name": "p6_so_pekocko_api",
+  "version": "1.0.0",
+  "description": "API pour le projet 6 OPENCLASSROOMS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WadeSpectre/P6_So_Pekocko_API.git"
+  },
+  "author": "WadeSpectre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WadeSpectre/P6_So_Pekocko_API/issues"
+  },
+  "homepage": "https://github.com/WadeSpectre/P6_So_Pekocko_API#readme"
+}
