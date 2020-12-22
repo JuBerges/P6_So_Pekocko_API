@@ -1,7 +1,7 @@
 const { ObjectID } = require("bson");
 const mongoose = require("mongoose");
 
-const thingSchema = mongoose.Schema({
+const sauceSchema = mongoose.Schema({
   id: { type: ObjectID, required: true },
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -12,8 +12,8 @@ const thingSchema = mongoose.Schema({
   heat: { type: Number, required: true },
   likes: { type: Number, required: false },
   dislikes: { type: Number, required: false },
-  usersLiked: { type: [Number], required: false },
-  usersDisliked: { type: [Number], required: false },
+  usersLiked: { type: Array, required: false },
+  usersDisliked: { type: Array, required: false },
 });
 
-module.exports = mongoose.model("Thing", thingSchema);
+module.exports = mongoose.model("Sauce", sauceSchema);
