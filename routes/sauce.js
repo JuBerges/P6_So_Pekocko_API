@@ -4,6 +4,10 @@ const router = express.Router();
 const saucesCtrl = require("../controllers/sauce");
 const auth = require("../middleware/auth");
 const multer = require("../middleware/multer-config");
+const delUnusePic = require("../middleware/deleteUnuseImage");
+const getOldPic = require("../middleware/getOldPic");
+const checkForm = require("../middleware/checkIfFormValid");
+
 router.post("/", auth, multer, saucesCtrl.createSauce);
 
 router.put("/:id", auth, multer, saucesCtrl.modifySauce);
