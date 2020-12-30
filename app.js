@@ -2,10 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+require("dotenv").config();
+const rateLimit = require("express-rate-limit"); //===> Use to limit repeated requests
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, //===> 15 minutes
+  max: 100, //===> limit each IP to 100 requests per windowMs
+});
 
 const saucesRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
-require("dotenv").config();
 
 mongoose
   .connect(process.env.MDB_URI, {
@@ -16,6 +21,7 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
+app.use(limiter);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
