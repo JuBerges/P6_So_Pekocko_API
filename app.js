@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+const helmet = require("helmet");
+const cors = require("cors");
 require("dotenv").config();
 const rateLimit = require("express-rate-limit"); //===> Use to limit repeated requests
 const limiter = rateLimit({
@@ -21,7 +23,12 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
+
 app.use(limiter);
+
+app.use(helmet.xssFilter());
+
+app.use(cors({ origin: "http://localhost:4200" })); //====> Secure CORS
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -41,6 +48,7 @@ app.use(bodyParser.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/sauces", saucesRoutes);
+
 app.use("/api/auth", userRoutes);
 
 module.exports = app;
