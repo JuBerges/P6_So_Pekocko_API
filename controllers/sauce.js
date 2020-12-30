@@ -63,25 +63,91 @@ exports.getAllSauces = (req, res) => {
 };
 
 exports.likingSauce = (req, res) => {
-  if (req.body.like == 1) {
-    Sauce.updateOne(
-      { _id: req.params.id },
-      {
-        $inc: { likes: 1 },
-        $push: { usersLiked: req.body.userId },
-      }
-    )
-      .then((sauce) => res.status(200).json(sauce))
-      .catch((error) => res.status(400).json({ error: error }));
-  } else if (req.body.like == -1) {
-    Sauce.updateOne(
-      { _id: req.params.id },
-      {
-        $inc: { dislikes: 1 },
-        $push: { usersDisliked: req.body.userId },
-      }
-    )
-      .then((sauce) => res.status(200).json(sauce))
-      .catch((error) => res.status(400).json({ error: error }));
+  switch (req.body.like) {
+    case 0: //====> Remove like or dislike
+      Sauce.findOne({ _id: req.params.id })
+        .then((sauce) => {
+          //===> Check if user hasn't already liked the sauce
+          if (sauce.usersLiked.find((user) => user === req.body.userId)) {
+            Sauce.updateOne(
+              { _id: req.params.id },
+              {
+                $inc: { likes: -1 },
+                $pull: { usersLiked: req.body.userId },
+                _id: req.params.id,
+              }
+            )
+              .then(() => {
+                res
+                  .status(201)
+                  .json({ message: "Votre avis a bien été pris en compte !" });
+              })
+              .catch((error) => {
+                res.status(400).json({ error: error });
+              });
+          }
+          //====> check if user hasn't already disliked the sauce
+          if (sauce.usersDisliked.find((user) => user === req.body.userId)) {
+            Sauce.updateOne(
+              { _id: req.params.id },
+              {
+                $inc: { dislikes: -1 },
+                $pull: { usersDisliked: req.body.userId },
+                _id: req.params.id,
+              }
+            )
+              .then(() => {
+                res
+                  .status(201)
+                  .json({ message: "Votre avis a bien été pris en compte !" });
+              })
+              .catch((error) => {
+                res.status(400).json({ error: error });
+              });
+          }
+        })
+        .catch((error) => {
+          res.status(404).json({ error: error });
+        });
+      break;
+    case 1: //====> If user like the sauce
+      Sauce.updateOne(
+        { _id: req.params.id },
+        {
+          $inc: { likes: 1 },
+          $push: { usersLiked: req.body.userId },
+          _id: req.params.id,
+        }
+      )
+        .then(() => {
+          res
+            .status(201)
+            .json({ message: "Votre avis a bien été pris en compte !" });
+        })
+        .catch((error) => {
+          res.status(400).json({ error: error });
+        });
+      break;
+
+    case -1: //====> If user dislike the sauce
+      Sauce.updateOne(
+        { _id: req.params.id },
+        {
+          $inc: { dislikes: 1 },
+          $push: { usersDisliked: req.body.userId },
+          _id: req.params.id,
+        }
+      )
+        .then(() => {
+          res
+            .status(201)
+            .json({ message: "Votre avis a bien été pris en compte !" });
+        })
+        .catch((error) => {
+          res.status(400).json({ error: error });
+        });
+      break;
+    default:
+      console.error("Erreur, retentez plus tard");
   }
 };
