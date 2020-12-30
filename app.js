@@ -5,12 +5,13 @@ const path = require("path");
 
 const saucesRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
+require("dotenv").config();
 
 mongoose
-  .connect(
-    "mongodb+srv://Robby:shadow63@cluster0.nui1f.mongodb.net/sopekocko?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.MDB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
