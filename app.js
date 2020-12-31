@@ -1,6 +1,6 @@
 /*        
 ========>|====================================|<========
-========>|---------SO-PEKOCKO-----------------|<========
+========>|---------p6_so_pekocko_api----------|<========
 ========>|---------@Author: J.Bergès----------|<========
 ========>|---------@Version: 1.0--------------|<========
 ========>|====================================|<========
@@ -33,7 +33,7 @@ const app = express();
 
 app.use(limiter);
 
-app.use(helmet.xssFilter());
+app.use(helmet.xssFilter()); //====>Cross-site scripting sercurity
 
 app.use(cors({ origin: "http://localhost:4200" })); //====> Secure CORS
 
