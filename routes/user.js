@@ -10,9 +10,9 @@ router.post("/signup", userCtrl.signup);
 
 //====>||SIGN IN||<====\\
 router.post(
-  "/login",
-  bruteforce.prevent, //====> error 429 if we hit this route too often
-  userCtrl.login
+    "/login",
+    bruteforce.prevent, //====> error 429 if we hit this route too often
+    userCtrl.login
 );
 
 module.exports = router;
